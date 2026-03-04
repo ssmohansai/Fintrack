@@ -1,3 +1,6 @@
+// TransactionForm.tsx
+// Form to add a new transaction (income or expense)
+
 import { useState } from "react";
 
 interface Transaction {
@@ -8,26 +11,26 @@ interface Transaction {
 }
 
 interface Props {
-  addTransaction: (transaction: Transaction) => void;
+  addTransaction: (transaction: Transaction) => void; // Function passed from parent to add transaction
 }
 
 export default function TransactionForm({ addTransaction }: Props) {
-  const [title, setTitle] = useState("");
-  const [amount, setAmount] = useState(0);
-  const [type, setType] = useState<"income" | "expense">("income");
+  const [title, setTitle] = useState(""); // Controlled input for transaction title
+  const [amount, setAmount] = useState(0); // Controlled input for transaction amount
+  const [type, setType] = useState<"income" | "expense">("income"); // Controlled select for type
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title || !amount) return;
+    if (!title || !amount) return; // Prevent empty submission
 
     addTransaction({
-      id: Date.now(),
+      id: Date.now(), // Unique ID for transaction
       title,
       amount,
       type,
     });
 
-    setTitle("");
+    setTitle(""); // Clear input after submit
     setAmount(0);
   };
 
